@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy to multi stage environments
+
+# Controls when the action will run. 
+on:  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:  
+  build:    
+    runs-on: ubuntu-latest    
+    steps:            
+      - name: Run the build
+        run: echo Build ran successfully!
+  
+  DeployDev:
+    name: Deploy to Dev Environment
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: 
+      name: Dev_Env
+      url: 'http://dev.timjim.com'
+    steps:
+      - name: Deploy
+        run: echo Deploying to development environment
+      
+
