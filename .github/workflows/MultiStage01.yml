@@ -23,7 +23,27 @@ jobs:
       name: Dev_Env
       url: 'http://dev.timjim.com'
     steps:
-      - name: Deploy
+      - name: DeployDev
         run: echo Deploying to development environment
+  
+  DeployQA:
+    name: Deploy to QA Envir
+    needs: [DeployDev]
+    runs-on: ubuntu-latest
+    environment: 
+      name: QA_Env
+      url: 'http://qa.timjim.com'
+    steps:
+      - name: DeployQA
+        run: echo Deploying to QA environment
       
-
+  DeployProd:
+      name: Deploy to Prod Environment
+      needs: [DeployQA]
+      runs-on: ubuntu-latest
+      environment: 
+        name: Prod_Env
+        url: 'http://www.timjim.com'
+      steps:
+        - name: Deploy
+          run: echo Deploying to production environment
